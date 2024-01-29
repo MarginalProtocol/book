@@ -1,0 +1,8 @@
+/book
+/.idea
+/.vscode
+
+/cache/
+/projects/**/cache/
+/out/
+/projects/**/out/
