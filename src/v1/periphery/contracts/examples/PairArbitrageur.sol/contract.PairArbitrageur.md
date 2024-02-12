@@ -1,5 +1,5 @@
 # PairArbitrageur
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/252206c9465648eefefe7b978f4e865682332b87/contracts/examples/PairArbitrageur.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/examples/PairArbitrageur.sol)
 
 **Inherits:**
 IMarginalV1SwapCallback, IUniswapV3SwapCallback, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PeripheryPayments](/contracts/base/PeripheryPayments.sol/abstract.PeripheryPayments.md), PeripheryValidation, Multicall
@@ -115,6 +115,7 @@ struct ExecuteParams {
     uint160 sqrtPriceLimit0X96;
     uint160 sqrtPriceLimit1X96;
     uint256 deadline;
+    bool sweepAsETH;
 }
 ```
 

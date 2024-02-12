@@ -1,5 +1,5 @@
 # LiquidityManagement
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/252206c9465648eefefe7b978f4e865682332b87/contracts/base/LiquidityManagement.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/base/LiquidityManagement.sol)
 
 **Inherits:**
 IMarginalV1MintCallback, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PeripheryPayments](/contracts/base/PeripheryPayments.sol/abstract.PeripheryPayments.md)
@@ -23,6 +23,20 @@ Mints liquidity on pool
 ```solidity
 function mint(MintParams memory params) internal virtual returns (uint256 shares, uint256 amount0, uint256 amount1);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`MintParams`|The parameters necessary to mint liquidity on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`shares`|`uint256`|The amount of LP token shares minted to recipient|
+|`amount0`|`uint256`|The amount of token0 added to the pool reserves|
+|`amount1`|`uint256`|The amount of token1 added to the pool reserves|
+
 
 ### marginalV1MintCallback
 
@@ -42,6 +56,20 @@ function burn(BurnParams memory params)
     virtual
     returns (uint128 liquidityDelta, uint256 amount0, uint256 amount1);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`BurnParams`|The parameters necessary to burn liquidity on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`liquidityDelta`|`uint128`|The liquidity removed from the pool|
+|`amount0`|`uint256`|The amount of token0 removed from pool reserves|
+|`amount1`|`uint256`|The amount of token1 removed from pool reserves|
+
 
 ## Errors
 ### Amount0LessThanMin

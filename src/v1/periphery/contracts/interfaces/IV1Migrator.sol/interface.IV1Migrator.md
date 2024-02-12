@@ -1,5 +1,5 @@
 # IV1Migrator
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/252206c9465648eefefe7b978f4e865682332b87/contracts/interfaces/IV1Migrator.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/interfaces/IV1Migrator.sol)
 
 Migrates liquidity from Uniswap v3-compatible pairs into Marginal v1 pools
 
@@ -9,8 +9,9 @@ Migrates liquidity from Uniswap v3-compatible pairs into Marginal v1 pools
 
 Migrates liquidity to Marginal v1 by removing liquidity from Uniswap v3
 
-*Slippage protection is enforced via `amount{0,1}Min`, which should be a discount of the expected values of
-the maximum amount of Marginal v1 liquidity that the Uniswap v3 liquidity can get.*
+*Slippage protection is enforced via `amount{0,1}MinToRemove` on Uniswap v3 decrease liquidity
+and `amount{0,1}MinToMigrate` on Marginal v1 add liquidity.
+Must approve `IV1Migrator` as spender of `params.tokenId` or set approval for all prior to calling migrate.*
 
 
 ```solidity
@@ -29,13 +30,13 @@ function migrate(MigrateParams calldata params) external;
 ```solidity
 struct MigrateParams {
     uint256 tokenId;
-    uint128 liquidityToMigrate;
-    address token0;
-    address token1;
+    uint128 liquidityToRemove;
+    uint256 amount0MinToRemove;
+    uint256 amount1MinToRemove;
+    uint8 percentageToMigrate;
+    uint256 amount0MinToMigrate;
+    uint256 amount1MinToMigrate;
     uint24 maintenance;
-    address oracle;
-    uint256 amount0Min;
-    uint256 amount1Min;
     address recipient;
     uint256 deadline;
     bool refundAsETH;

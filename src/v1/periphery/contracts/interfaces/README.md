@@ -2,6 +2,7 @@
 
 # Contents
 - [INonfungiblePositionManager](INonfungiblePositionManager.sol/interface.INonfungiblePositionManager.md)
+- [IOracle](IOracle.sol/interface.IOracle.md)
 - [IPeripheryImmutableState](IPeripheryImmutableState.sol/interface.IPeripheryImmutableState.md)
 - [IPeripheryPayments](IPeripheryPayments.sol/interface.IPeripheryPayments.md)
 - [IPoolInitializer](IPoolInitializer.sol/interface.IPoolInitializer.md)

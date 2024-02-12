@@ -1,5 +1,5 @@
 # PositionManagement
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/252206c9465648eefefe7b978f4e865682332b87/contracts/base/PositionManagement.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/base/PositionManagement.sol)
 
 **Inherits:**
 IMarginalV1AdjustCallback, IMarginalV1OpenCallback, IMarginalV1SettleCallback, IUniswapV3SwapCallback, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PeripheryPayments](/contracts/base/PeripheryPayments.sol/abstract.PeripheryPayments.md)
@@ -26,6 +26,23 @@ function open(OpenParams memory params)
     virtual
     returns (uint256 id, uint256 size, uint256 debt, uint256 margin, uint256 fees, uint256 rewards);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`OpenParams`|The parameters necessary to open the position on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`id`|`uint256`|The position ID stored in the pool|
+|`size`|`uint256`|The position size on the pool in the margin token|
+|`debt`|`uint256`|The position debt owed to the pool in the non-margin token|
+|`margin`|`uint256`|The margin backing the position opened on the pool|
+|`fees`|`uint256`|The fees paid in margin token to open the position on the pool|
+|`rewards`|`uint256`|The rewards escrowed in opened position available to liquidators when position not safe|
+
 
 ### marginalV1OpenCallback
 
@@ -42,6 +59,19 @@ Adjusts margin backing position on pool
 ```solidity
 function adjust(AdjustParams memory params) internal virtual returns (uint256 margin0, uint256 margin1);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`AdjustParams`|The parameters necessary to adjust the position on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`margin0`|`uint256`|The amount of token0 to be used as the new margin backing the position|
+|`margin1`|`uint256`|The amount of token1 to be used as the new margin backing the position|
+
 
 ### marginalV1AdjustCallback
 
@@ -61,6 +91,20 @@ function settle(SettleParams memory params)
     virtual
     returns (int256 amount0, int256 amount1, uint256 rewards);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`SettleParams`|The parameters necessary to settle the position on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`amount0`|`int256`|The delta of the balance of token0 of the pool. Position debt into the pool (> 0) if long token1 (zeroForOne = true), or position size and margin out of the pool (< 0) if long token0 (zeroForOne = false)|
+|`amount1`|`int256`|The delta of the balance of token1 of the pool. Position size and margin out of the pool (< 0) if long token1 (zeroForOne = true), or position debt into the pool (> 0) if long token0 (zeroForOne = false)|
+|`rewards`|`uint256`|The amount of escrowed native (gas) token sent to `params.recipient`|
+
 
 ### flash
 
@@ -70,6 +114,19 @@ Settles a position by repaying debt with portion of size swapped through spot
 ```solidity
 function flash(FlashParams memory params) internal virtual returns (uint256 amountOut, uint256 rewards);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`FlashParams`|The parameters necessary to flash settle the position on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`amountOut`|`uint256`|The amount of margin token received from pool less debts repaid via swapping on spot|
+|`rewards`|`uint256`|The amount of escrowed native (gas) token received after flash settling the position|
+
 
 ### marginalV1SettleCallback
 
@@ -93,6 +150,18 @@ Liquidates a position on pool
 ```solidity
 function liquidate(LiquidateParams memory params) internal virtual returns (uint256 rewards);
 ```
+**Parameters**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`params`|`LiquidateParams`|The parameters necessary to liquidate a position on the pool|
+
+**Returns**
+
+|Name|Type|Description|
+|----|----|-----------|
+|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after liquidating the position|
+
 
 ## Errors
 ### SizeLessThanMin
