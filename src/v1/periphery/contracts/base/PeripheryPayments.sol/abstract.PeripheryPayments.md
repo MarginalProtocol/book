@@ -1,5 +1,5 @@
 # PeripheryPayments
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/base/PeripheryPayments.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/base/PeripheryPayments.sol)
 
 **Inherits:**
 [IPeripheryPayments](/contracts/interfaces/IPeripheryPayments.sol/interface.IPeripheryPayments.md), [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md)
@@ -59,7 +59,7 @@ that use ether for the input amount*
 
 
 ```solidity
-function refundETH() external payable override;
+function refundETH() public payable override;
 ```
 
 ### sweepETH
@@ -79,6 +79,15 @@ function sweepETH(uint256 amountMinimum, address recipient) public payable;
 |`amountMinimum`|`uint256`|The minimum amount of ETH required for a transfer|
 |`recipient`|`address`|The destination address of the ETH|
 
+
+### wrapETH
+
+Wraps balance of native (gas) token in contract to WETH9
+
+
+```solidity
+function wrapETH() internal;
+```
 
 ### pay
 

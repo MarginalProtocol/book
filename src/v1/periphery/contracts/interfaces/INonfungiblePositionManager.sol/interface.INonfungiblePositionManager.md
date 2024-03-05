@@ -1,5 +1,5 @@
 # INonfungiblePositionManager
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/interfaces/INonfungiblePositionManager.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/interfaces/INonfungiblePositionManager.sol)
 
 **Inherits:**
 IERC721
@@ -58,6 +58,8 @@ function positions(uint256 tokenId)
 
 Mints a new position, opening on pool
 
+*If a contract, `msg.sender` must implement a `receive()` function to receive any refunded excess liquidation rewards in the native (gas) token from the manager.*
+
 
 ```solidity
 function mint(MintParams calldata params)
@@ -110,7 +112,7 @@ Removes margin from an existing position
 
 
 ```solidity
-function free(FreeParams calldata params) external payable returns (uint256 margin);
+function free(FreeParams calldata params) external returns (uint256 margin);
 ```
 **Parameters**
 
@@ -128,6 +130,8 @@ function free(FreeParams calldata params) external payable returns (uint256 marg
 ### burn
 
 Burns an existing position, settling on pool via external payer
+
+*If a contract, `msg.sender` must implement a `receive()` function to receive any refunded excess debt payment in the native (gas) token from the manager.*
 
 
 ```solidity
@@ -148,16 +152,18 @@ function burn(BurnParams calldata params)
 |----|----|-----------|
 |`amountIn`|`uint256`|The amount of debt token in used to settle position|
 |`amountOut`|`uint256`|The amount of margin token received after settling position|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after settling position|
+|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token released by pool after settling position|
 
 
 ### ignite
 
 Burns an existing position, settling on pool via swap through spot
 
+*If a contract, `recipient` must implement a `receive()` function to receive any excess liquidation rewards unused by the spot swap in the native (gas) token from the manager.*
+
 
 ```solidity
-function ignite(IgniteParams calldata params) external payable returns (uint256 amountOut, uint256 rewards);
+function ignite(IgniteParams calldata params) external returns (uint256 amountOut, uint256 rewards);
 ```
 **Parameters**
 
@@ -170,28 +176,7 @@ function ignite(IgniteParams calldata params) external payable returns (uint256 
 |Name|Type|Description|
 |----|----|-----------|
 |`amountOut`|`uint256`|The amount of margin token received after settling position|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after settling position|
-
-
-### grab
-
-Grabs an existing position, liquidating on pool
-
-
-```solidity
-function grab(GrabParams calldata params) external payable returns (uint256 rewards);
-```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`params`|`GrabParams`|The parameters necessary for liquidating a position, encoded as `GrabParams` in calldata|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after liquidating the position|
+|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token released by pool after settling position|
 
 
 ## Structs
@@ -225,7 +210,6 @@ struct LockParams {
     address oracle;
     uint256 tokenId;
     uint128 marginIn;
-    address recipient;
     uint256 deadline;
 }
 ```
@@ -269,20 +253,6 @@ struct IgniteParams {
     address oracle;
     uint256 tokenId;
     uint256 amountOutMinimum;
-    address recipient;
-    uint256 deadline;
-}
-```
-
-### GrabParams
-
-```solidity
-struct GrabParams {
-    address token0;
-    address token1;
-    uint24 maintenance;
-    address oracle;
-    uint256 tokenId;
     address recipient;
     uint256 deadline;
 }

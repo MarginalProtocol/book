@@ -1,5 +1,5 @@
 # PositionManagement
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/base/PositionManagement.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/base/PositionManagement.sol)
 
 **Inherits:**
 IMarginalV1AdjustCallback, IMarginalV1OpenCallback, IMarginalV1SettleCallback, IUniswapV3SwapCallback, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PeripheryPayments](/contracts/base/PeripheryPayments.sol/abstract.PeripheryPayments.md)
@@ -84,6 +84,8 @@ function marginalV1AdjustCallback(uint256 amount0Owed, uint256 amount1Owed, byte
 
 Settles a position on pool via external payer of debt
 
+*Beware of re-entrancy issues given implicit ETH transfer at end of function*
+
 
 ```solidity
 function settle(SettleParams memory params)
@@ -110,6 +112,8 @@ function settle(SettleParams memory params)
 
 Settles a position by repaying debt with portion of size swapped through spot
 
+*Beware of re-entrancy issues given implicit ETH transfer at end of function*
+
 
 ```solidity
 function flash(FlashParams memory params) internal virtual returns (uint256 amountOut, uint256 rewards);
@@ -125,7 +129,7 @@ function flash(FlashParams memory params) internal virtual returns (uint256 amou
 |Name|Type|Description|
 |----|----|-----------|
 |`amountOut`|`uint256`|The amount of margin token received from pool less debts repaid via swapping on spot|
-|`rewards`|`uint256`|The amount of escrowed native (gas) token received after flash settling the position|
+|`rewards`|`uint256`|The amount of escrowed native (gas) token released by pool after flash settling the position|
 
 
 ### marginalV1SettleCallback
@@ -141,27 +145,6 @@ function marginalV1SettleCallback(int256 amount0Delta, int256 amount1Delta, byte
 ```solidity
 function uniswapV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes calldata data) external virtual;
 ```
-
-### liquidate
-
-Liquidates a position on pool
-
-
-```solidity
-function liquidate(LiquidateParams memory params) internal virtual returns (uint256 rewards);
-```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`params`|`LiquidateParams`|The parameters necessary to liquidate a position on the pool|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after liquidating the position|
-
 
 ## Errors
 ### SizeLessThanMin
@@ -261,20 +244,6 @@ struct FlashParams {
     address recipient;
     uint96 id;
     uint256 amountOutMinimum;
-}
-```
-
-### LiquidateParams
-
-```solidity
-struct LiquidateParams {
-    address token0;
-    address token1;
-    uint24 maintenance;
-    address oracle;
-    address recipient;
-    address owner;
-    uint96 id;
 }
 ```
 

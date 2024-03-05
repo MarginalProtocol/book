@@ -1,5 +1,5 @@
 # IQuoter
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/interfaces/IQuoter.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/interfaces/IQuoter.sol)
 
 Quotes the result of leverage trades and swaps on Marginal v1 pools
 
@@ -121,35 +121,6 @@ function quoteIgnite(INonfungiblePositionManager.IgniteParams calldata params)
 |`liquidityAfter`|`uint128`|Pool liquidity after ignite|
 |`sqrtPriceX96After`|`uint160`|Pool sqrt price after ignite|
 |`liquidityLockedAfter`|`uint128`|Pool locked liquidity after ignite|
-
-
-### quoteGrab
-
-Quotes the result of calling NonfungiblePositionManager::grab
-
-*Reverts if grab would revert*
-
-
-```solidity
-function quoteGrab(INonfungiblePositionManager.GrabParams calldata params)
-    external
-    view
-    returns (uint256 rewards, uint128 liquidityAfter, uint160 sqrtPriceX96After, uint128 liquidityLockedAfter);
-```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`params`|`INonfungiblePositionManager.GrabParams`|Param inputs to NonfungiblePositionManager::grab|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`rewards`|`uint256`|Amount of escrowed liquidation rewards out to liquidator after grabbing the position|
-|`liquidityAfter`|`uint128`|Pool liquidity after grab|
-|`sqrtPriceX96After`|`uint160`|Pool sqrt price after grab|
-|`liquidityLockedAfter`|`uint128`|Pool locked liquidity after grab|
 
 
 ### quoteExactInputSingle

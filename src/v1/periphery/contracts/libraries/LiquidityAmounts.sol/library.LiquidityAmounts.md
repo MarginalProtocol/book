@@ -1,5 +1,5 @@
 # LiquidityAmounts
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/libraries/LiquidityAmounts.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/libraries/LiquidityAmounts.sol)
 
 
 ## Functions

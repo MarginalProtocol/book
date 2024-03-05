@@ -1,5 +1,5 @@
 # LiquidityManagement
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/base/LiquidityManagement.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/base/LiquidityManagement.sol)
 
 **Inherits:**
 IMarginalV1MintCallback, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PeripheryPayments](/contracts/base/PeripheryPayments.sol/abstract.PeripheryPayments.md)
@@ -18,6 +18,8 @@ function getPool(PoolAddress.PoolKey memory poolKey) internal view returns (IMar
 ### mint
 
 Mints liquidity on pool
+
+*Beware of re-entrancy issues given implicit ETH transfer at end of function*
 
 
 ```solidity

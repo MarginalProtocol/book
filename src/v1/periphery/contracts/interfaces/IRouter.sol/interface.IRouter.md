@@ -1,5 +1,5 @@
 # IRouter
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/interfaces/IRouter.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/interfaces/IRouter.sol)
 
 Facilitates swaps and liquidity provision on Marginal v1 pools
 
@@ -51,6 +51,8 @@ function exactInput(ExactInputParams calldata params) external payable returns (
 
 Swaps as little as possible of one token for `amountOut` of another token
 
+*If a contract sending in native (gas) token, `msg.sender` must implement a `receive()` function to receive any refunded unspent amount in.*
+
 
 ```solidity
 function exactOutputSingle(ExactOutputSingleParams calldata params) external payable returns (uint256 amountIn);
@@ -72,6 +74,8 @@ function exactOutputSingle(ExactOutputSingleParams calldata params) external pay
 
 Swaps as little as possible of one token for `amountOut` of another along the specified path (reversed)
 
+*If a contract sending in native (gas) token, `msg.sender` must implement a `receive()` function to receive any refunded unspent amount in.*
+
 
 ```solidity
 function exactOutput(ExactOutputParams calldata params) external payable returns (uint256 amountIn);
@@ -92,6 +96,8 @@ function exactOutput(ExactOutputParams calldata params) external payable returns
 ### addLiquidity
 
 Adds liquidity, minting on pool
+
+*If a contract sending in native (gas) token, `msg.sender` must implement a `receive()` function to receive any refunded unspent amount in.*
 
 
 ```solidity

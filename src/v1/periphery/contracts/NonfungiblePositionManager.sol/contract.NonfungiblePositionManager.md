@@ -1,5 +1,5 @@
 # NonfungiblePositionManager
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/1d4c6a63a24ea055be056199b2cac6431f68ec06/contracts/NonfungiblePositionManager.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/2ce1df3e90c9d2b47899fece944f04a7d78d5b16/contracts/NonfungiblePositionManager.sol)
 
 **Inherits:**
 [INonfungiblePositionManager](/contracts/interfaces/INonfungiblePositionManager.sol/interface.INonfungiblePositionManager.md), Multicall, ERC721, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PositionManagement](/contracts/base/PositionManagement.sol/abstract.PositionManagement.md), [PositionState](/contracts/base/PositionState.sol/abstract.PositionState.md), PeripheryValidation
@@ -89,6 +89,8 @@ function positions(uint256 tokenId)
 
 Mints a new position, opening on pool
 
+*If a contract, `msg.sender` must implement a `receive()` function to receive any refunded excess liquidation rewards in the native (gas) token from the manager.*
+
 
 ```solidity
 function mint(MintParams calldata params)
@@ -149,7 +151,6 @@ Removes margin from an existing position
 ```solidity
 function free(FreeParams calldata params)
     external
-    payable
     onlyApprovedOrOwner(params.tokenId)
     checkDeadline(params.deadline)
     returns (uint256 margin);
@@ -170,6 +171,8 @@ function free(FreeParams calldata params)
 ### burn
 
 Burns an existing position, settling on pool via external payer
+
+*If a contract, `msg.sender` must implement a `receive()` function to receive any refunded excess debt payment in the native (gas) token from the manager.*
 
 
 ```solidity
@@ -192,18 +195,19 @@ function burn(BurnParams calldata params)
 |----|----|-----------|
 |`amountIn`|`uint256`|The amount of debt token in used to settle position|
 |`amountOut`|`uint256`|The amount of margin token received after settling position|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after settling position|
+|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token released by pool after settling position|
 
 
 ### ignite
 
 Burns an existing position, settling on pool via swap through spot
 
+*If a contract, `recipient` must implement a `receive()` function to receive any excess liquidation rewards unused by the spot swap in the native (gas) token from the manager.*
+
 
 ```solidity
 function ignite(IgniteParams calldata params)
     external
-    payable
     onlyApprovedOrOwner(params.tokenId)
     checkDeadline(params.deadline)
     returns (uint256 amountOut, uint256 rewards);
@@ -219,28 +223,7 @@ function ignite(IgniteParams calldata params)
 |Name|Type|Description|
 |----|----|-----------|
 |`amountOut`|`uint256`|The amount of margin token received after settling position|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after settling position|
-
-
-### grab
-
-Grabs an existing position, liquidating on pool
-
-
-```solidity
-function grab(GrabParams calldata params) external payable checkDeadline(params.deadline) returns (uint256 rewards);
-```
-**Parameters**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`params`|`GrabParams`|The parameters necessary for liquidating a position, encoded as `GrabParams` in calldata|
-
-**Returns**
-
-|Name|Type|Description|
-|----|----|-----------|
-|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token received after liquidating the position|
+|`rewards`|`uint256`|The amount of escrowed liquidation rewards in native (gas) token released by pool after settling position|
 
 
 ## Events
@@ -249,6 +232,7 @@ function grab(GrabParams calldata params) external payable checkDeadline(params.
 ```solidity
 event Mint(
     uint256 indexed tokenId,
+    address sender,
     address indexed recipient,
     uint256 positionId,
     uint256 size,
@@ -262,31 +246,32 @@ event Mint(
 ### Lock
 
 ```solidity
-event Lock(uint256 indexed tokenId, address indexed recipient, uint256 marginAfter);
+event Lock(uint256 indexed tokenId, address indexed sender, uint256 marginAfter);
 ```
 
 ### Free
 
 ```solidity
-event Free(uint256 indexed tokenId, address indexed recipient, uint256 marginAfter);
+event Free(uint256 indexed tokenId, address indexed sender, address recipient, uint256 marginAfter);
 ```
 
 ### Burn
 
 ```solidity
-event Burn(uint256 indexed tokenId, address indexed recipient, uint256 amountIn, uint256 amountOut, uint256 rewards);
+event Burn(
+    uint256 indexed tokenId,
+    address indexed sender,
+    address recipient,
+    uint256 amountIn,
+    uint256 amountOut,
+    uint256 rewards
+);
 ```
 
 ### Ignite
 
 ```solidity
-event Ignite(uint256 indexed tokenId, address indexed recipient, uint256 amountOut, uint256 rewards);
-```
-
-### Grab
-
-```solidity
-event Grab(uint256 indexed tokenId, address indexed recipient, uint256 rewards);
+event Ignite(uint256 indexed tokenId, address indexed sender, address recipient, uint256 amountOut, uint256 rewards);
 ```
 
 ## Errors
