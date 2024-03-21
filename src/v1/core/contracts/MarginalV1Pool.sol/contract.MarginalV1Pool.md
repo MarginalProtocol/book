@@ -1,8 +1,8 @@
 # MarginalV1Pool
-[Git Source](https://github.com/MarginalProtocol/v1-core/blob/692b49fa7fdd08211d0090e7004215e23af735d5/contracts/MarginalV1Pool.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-core/blob/4dcf410464dd1b73aaabe9fa06bd3450c672d3b9/contracts/MarginalV1Pool.sol)
 
 **Inherits:**
-[IMarginalV1Pool](/contracts/interfaces/IMarginalV1Pool.sol/interface.IMarginalV1Pool.md), ERC20
+[IMarginalV1Pool](/contracts/interfaces/IMarginalV1Pool.sol/interface.IMarginalV1Pool.md), [ERC20](/contracts/test/USDT.sol/contract.ERC20.md)
 
 
 ## State Variables
@@ -198,7 +198,7 @@ modifier onlyFactoryOwner();
 
 ```solidity
 constructor(address _factory, address _token0, address _token1, uint24 _maintenance, address _oracle)
-    ERC20("Marginal V1 LP Token", "MRGLV1-LP");
+    ERC20("Marginal V1 LP Token", "MARGV1-LP");
 ```
 
 ### initialize

@@ -1,5 +1,5 @@
 # MarginalV1Factory
-[Git Source](https://github.com/MarginalProtocol/v1-core/blob/692b49fa7fdd08211d0090e7004215e23af735d5/contracts/MarginalV1Factory.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-core/blob/4dcf410464dd1b73aaabe9fa06bd3450c672d3b9/contracts/MarginalV1Factory.sol)
 
 **Inherits:**
 [IMarginalV1Factory](/contracts/interfaces/IMarginalV1Factory.sol/interface.IMarginalV1Factory.md)
