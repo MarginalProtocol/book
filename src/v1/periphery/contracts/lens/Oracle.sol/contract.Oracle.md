@@ -1,5 +1,5 @@
 # Oracle
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/6ce65434509972d6f67aeab3e318f9db63a09fe0/contracts/lens/Oracle.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/de728cd3d633f080a3fd40108fe8de3ab4edd595/contracts/lens/Oracle.sol)
 
 **Inherits:**
 [IOracle](/contracts/interfaces/IOracle.sol/interface.IOracle.md), [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PositionState](/contracts/base/PositionState.sol/abstract.PositionState.md), Multicall

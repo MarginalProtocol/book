@@ -1,5 +1,5 @@
 # IQuoter
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/6ce65434509972d6f67aeab3e318f9db63a09fe0/contracts/interfaces/IQuoter.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/de728cd3d633f080a3fd40108fe8de3ab4edd595/contracts/interfaces/IQuoter.sol)
 
 Quotes the result of leverage trades and swaps on Marginal v1 pools
 

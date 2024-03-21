@@ -6,7 +6,6 @@
 - [interfaces](/contracts/interfaces)
 - [lens](/contracts/lens)
 - [libraries](/contracts/libraries)
-- [test](/contracts/test)
 - [NonfungiblePositionManager](NonfungiblePositionManager.sol/contract.NonfungiblePositionManager.md)
 - [PoolInitializer](PoolInitializer.sol/contract.PoolInitializer.md)
 - [Router](Router.sol/contract.Router.md)

@@ -1,5 +1,5 @@
 # NonfungiblePositionManager
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/6ce65434509972d6f67aeab3e318f9db63a09fe0/contracts/NonfungiblePositionManager.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/de728cd3d633f080a3fd40108fe8de3ab4edd595/contracts/NonfungiblePositionManager.sol)
 
 **Inherits:**
 [INonfungiblePositionManager](/contracts/interfaces/INonfungiblePositionManager.sol/interface.INonfungiblePositionManager.md), Multicall, ERC721, [PeripheryImmutableState](/contracts/base/PeripheryImmutableState.sol/abstract.PeripheryImmutableState.md), [PositionManagement](/contracts/base/PositionManagement.sol/abstract.PositionManagement.md), [PositionState](/contracts/base/PositionState.sol/abstract.PositionState.md), PeripheryValidation
@@ -42,7 +42,7 @@ modifier onlyApprovedOrOwner(uint256 tokenId);
 
 ```solidity
 constructor(address _factory, address _WETH9, address _tokenDescriptor_)
-    ERC721("Marginal V1 Position Token", "MRGLV1-POS")
+    ERC721("Marginal V1 Position Token", "MARGV1-POS")
     PeripheryImmutableState(_factory, _WETH9);
 ```
 
