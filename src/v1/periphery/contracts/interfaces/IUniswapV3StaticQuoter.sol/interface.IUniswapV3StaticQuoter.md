@@ -1,5 +1,5 @@
 # IUniswapV3StaticQuoter
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/de728cd3d633f080a3fd40108fe8de3ab4edd595/contracts/interfaces/IUniswapV3StaticQuoter.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/3831eb0dc9ad872eeb8a0eb98bd8566331443136/contracts/interfaces/IUniswapV3StaticQuoter.sol)
 
 Interface for the Eden network Uniswap v3 static quoter with public quote method
 
