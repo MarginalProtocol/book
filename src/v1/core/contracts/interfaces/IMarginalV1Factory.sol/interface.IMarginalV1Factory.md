@@ -1,5 +1,5 @@
 # IMarginalV1Factory
-[Git Source](https://github.com/MarginalProtocol/v1-core/blob/4dcf410464dd1b73aaabe9fa06bd3450c672d3b9/contracts/interfaces/IMarginalV1Factory.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-core/blob/2d246e9b4f6e970321a0f235176b47b340c9a03b/contracts/interfaces/IMarginalV1Factory.sol)
 
 The Marginal v1 factory creates pools and enables leverage tiers
 

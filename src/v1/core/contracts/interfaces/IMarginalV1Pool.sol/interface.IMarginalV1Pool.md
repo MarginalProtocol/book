@@ -1,8 +1,8 @@
 # IMarginalV1Pool
-[Git Source](https://github.com/MarginalProtocol/v1-core/blob/4dcf410464dd1b73aaabe9fa06bd3450c672d3b9/contracts/interfaces/IMarginalV1Pool.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-core/blob/2d246e9b4f6e970321a0f235176b47b340c9a03b/contracts/interfaces/IMarginalV1Pool.sol)
 
 **Inherits:**
-IERC20
+[IERC20](/contracts/.cache/openzeppelin/v4.8.3/token/ERC20/IERC20.sol/interface.IERC20.md)
 
 A Marginal v1 pool facilitates leverage trading, swapping, and automated market making between any two assets that strictly conform
 to the ERC20 specification

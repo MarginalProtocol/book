@@ -1,5 +1,5 @@
 # PositionState
-[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/3831eb0dc9ad872eeb8a0eb98bd8566331443136/contracts/base/PositionState.sol)
+[Git Source](https://github.com/MarginalProtocol/v1-periphery/blob/d846d56fa6d1e439306e60a85e98fc298babb2f7/contracts/base/PositionState.sol)
 
 
 ## Functions
@@ -78,21 +78,24 @@ function getPositionSynced(address pool, address recipient, uint96 id)
 
 Calculates the minimum margin requirement for the position to remain safe from liquidation
 
-*c_y (safe) >= (1+M) * d_x * max(P, TWAP) - s_y when zeroForOne = true
-or c_x (safe) >= (1+M) * d_y / min(P, TWAP) - s_x when zeroForOne = false*
+*c_y (safe) >= (1+M) * d_x * max(P, TWAP) - s_y when zeroForOne = true when no funding
+or c_x (safe) >= (1+M) * d_y / min(P, TWAP) - s_x when zeroForOne = false when no funding*
 
 
 ```solidity
-function _safeMarginMinimum(PositionLibrary.Info memory info, uint24 maintenance, int56 oracleTickCumulativeDelta)
-    internal
-    pure
-    returns (uint128 safeMarginMinimum);
+function _safeMarginMinimum(
+    PositionLibrary.Info memory info,
+    uint128 marginMinimum,
+    uint24 maintenance,
+    int56 oracleTickCumulativeDelta
+) internal pure returns (uint128 safeMarginMinimum);
 ```
 **Parameters**
 
 |Name|Type|Description|
 |----|----|-----------|
-|`info`|`PositionLibrary.Info`|The position info|
+|`info`|`PositionLibrary.Info`|The synced position info|
+|`marginMinimum`|`uint128`|The margin minimum when ignoring funding and liquidation|
 |`maintenance`|`uint24`|The minimum maintenance margin requirement|
 |`oracleTickCumulativeDelta`|`int56`|The difference in oracle tick cumulatives averaged over to assess position safety with|
 
